@@ -50,7 +50,11 @@ const app = new Vue({
     // keyの展開
     json2JSObjectString: function (json) {
       const jsObj = JSON.parse(json)
-      this.output = this.parseObject(jsObj, 1)
+      if (Array.isArray(jsObj)) {
+        this.output = this.getArray(null, jsObj)
+      } else {
+        this.output = this.parseObject(jsObj)
+      }
 
       return jsObj
     },
@@ -83,13 +87,13 @@ const app = new Vue({
       const coverIndnet = ' '.repeat(this.indentSize * this.tabSize)
       return `${coverIndnet}{${this.lineBreak}${textList.join(',' + this.lineBreak)}${this.lineBreak}${coverIndnet}}`
     },
-    getString: (key, value) => { return `${key}: "${value}"` },
+    getString: (key, value) => { return `${key}: '${value}'` },
     getNumber: (key, value) => { return `${key}: ${value}` },
     getBoolean: (key, value) => { return `${key}: ${value ? 'true' : 'false'}` },
     getObject: function (key, value) {
       return `${key}: ${this.parseObject(value)}`
     },
-    getStringForArray: (value) => { return `"${value}"` },
+    getStringForArray: (value) => { return `'${value}'` },
     getNumberForArray: (value) => { return `${value}` },
     getBooleanForArray: (value) => { return `${value ? 'true' : 'false'}` },
     getObjectForArray: function (value) {
