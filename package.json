@@ -1,0 +1,22 @@
+{
+  "name": "json2jsobject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wilf312/json2jsObject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wilf312/json2jsObject/issues"
+  },
+  "homepage": "https://github.com/wilf312/json2jsObject#readme",
+  "dependencies": {
+    "serve": "^6.4.9"
+  }
+}
