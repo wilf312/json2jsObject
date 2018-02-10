@@ -43,13 +43,14 @@ const app = new Vue({
   data: {
     input: '{"array": ["aaaa"],"arrayObj": [{"aaaa": 123}],"test": {"a": 1}, "message":"ああああ", "isVisible": true, "count": 777}',
     lineBreak: '\n',
-    tabSize: 2 // TODO インデント計算する
+    indentSize: 0,
+    tabSize: 2
   },
   methods: {
     // keyの展開
     json2JSObjectString: function (json) {
       const jsObj = JSON.parse(json)
-      this.output = this.parseObject(jsObj)
+      this.output = this.parseObject(jsObj, 1)
 
       return jsObj
     },
@@ -70,13 +71,17 @@ const app = new Vue({
       }
     },
     parseObject: function (obj) {
+      this.indentSize++
+      const indent = ' '.repeat(this.indentSize * this.tabSize)
       let textList = []
       const keys = Object.keys(obj)
       keys.forEach((v) => {
-        textList.push(this.execType(v, obj[v]))
+        textList.push(`${indent}${this.execType(v, obj[v])}`)
       })
+      this.indentSize--
 
-      return `{${this.lineBreak}${textList.join(',' + this.lineBreak)}${this.lineBreak}}`
+      const coverIndnet = ' '.repeat(this.indentSize * this.tabSize)
+      return `${coverIndnet}{${this.lineBreak}${textList.join(',' + this.lineBreak)}${this.lineBreak}${coverIndnet}}`
     },
     getString: (key, value) => { return `${key}: "${value}"` },
     getNumber: (key, value) => { return `${key}: ${value}` },
@@ -92,14 +97,16 @@ const app = new Vue({
     },
     getArray: function (key, value) {
       let val = []
+      this.indentSize++
+      const indent = ' '.repeat(this.indentSize * this.tabSize)
       value.forEach((v) => {
         const type = typeof v
         if (type === 'string') {
-          val.push(this.getStringForArray(v))
+          val.push(`${indent}${this.getStringForArray(v)}`)
         } else if (type === 'boolean') {
-          val.push(this.getBooleanForArray(v))
+          val.push(`${indent}${this.getBooleanForArray(v)}`)
         } else if (type === 'number') {
-          val.push(this.getNumberForArray(v))
+          val.push(`${indent}${this.getNumberForArray(v)}`)
         } else if (type === 'object') {
           if (Array.isArray(v)) {
             val.push(this.getArray(null, v))
@@ -108,7 +115,10 @@ const app = new Vue({
           }
         }
       })
-      return `${key}: [${this.lineBreak}${val.join(',')}${this.lineBreak}]`
+
+      this.indentSize--
+      const coverIndnet = ' '.repeat(this.indentSize * this.tabSize)
+      return `${key}: [${this.lineBreak}${val.join(',')}${this.lineBreak}${coverIndnet}]`
     }
   },
   computed: {
