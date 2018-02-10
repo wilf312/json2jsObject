@@ -48,16 +48,12 @@ const app = new Vue({
     // keyの展開
     json2JSObjectString: function (json) {
       const jsObj = JSON.parse(json)
-      console.log('jsObj', jsObj)
-      console.log('Object.keys', Object.keys(jsObj))
       this.output = this.parseObject(jsObj)
 
       return jsObj
     },
     execType: function (key, value) {
       const type = typeof value
-      console.log(value)
-      console.log(type)
       if (type === 'string') {
         return this.getString(key, value)
       } else if (type === 'boolean') {
@@ -98,21 +94,20 @@ const app = new Vue({
       value.forEach((v) => {
         const type = typeof v
         if (type === 'string') {
-          return this.getStringForArray(value)
+          val.push(this.getStringForArray(v))
         } else if (type === 'boolean') {
-          return this.getBooleanForArray(value)
+          val.push(this.getBooleanForArray(v))
         } else if (type === 'number') {
-          return this.getNumberForArray(value)
+          val.push(this.getNumberForArray(v))
         } else if (type === 'object') {
-          if (Array.isArray(value)) {
-            return this.getObjectForArray(value)
+          if (Array.isArray(v)) {
+            val.push(this.getArray(null, v))
           } else {
-            return this.getObject(value)
+            val.push(this.getObjectForArray(v))
           }
         }
-
       })
-      return `${key}: [${this.lineBreak}]`
+      return `${key}: [${this.lineBreak}${val.join(',')}${this.lineBreak}]`
     }
   },
   computed: {
