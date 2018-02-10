@@ -4,19 +4,60 @@
 <title></title>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+  #app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .input textarea,
+  .output textarea {
+    width: 40vw;
+    height: 80vh;
+  }
+</style>
 </head>
 <body>
 
 <div id="app">
-    {{ message }}
+  <div class="input">
+    キーをソートするか // TODOチェックボックス
+    <textarea v-model="input"></textarea>
+  </div>
+  <div class="output">
+    <textarea v-text="output"></textarea>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript" charset="UTF-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js" type="text/javascript" charset="UTF-8"></script>
 <script>
 const app = new Vue({
   el: '#app',
   data: {
-    message: 'START!'
+    input: '{"message":"ああああ", "isVisible": true, "count": 777}',
+    lineBreak: '\n'
+  },
+  methods: {
+    // keyの展開
+    json2JSObjectString: function (json) {
+      const jsObj = JSON.parse(json)
+      console.log('jsObj', jsObj)
+      console.log('Object.keys', Object.keys(jsObj))
+      return jsObj
+    },
+    execType: function (param) {
+      const type = typeof param
+      // TODO typeごとに出力内容の振り分け
+    }
+  },
+  computed: {
+    output: function () {
+      const output = this.json2JSObjectString(this.input)
+      return output
+    }
   }
 })
 </script>
