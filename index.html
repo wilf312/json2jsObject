@@ -27,7 +27,7 @@
     <textarea v-model="input"></textarea>
   </div>
   <div class="output">
-    <textarea v-text="output"></textarea>
+    <textarea v-text="_output"></textarea>
   </div>
 </div>
 
@@ -37,7 +37,7 @@
 const app = new Vue({
   el: '#app',
   data: {
-    input: '{"message":"ああああ", "isVisible": true, "count": 777}',
+    input: '{"array": ["aaaa"],"arrayObj": [{"aaaa": 123}],"test": {"a": 1}, "message":"ああああ", "isVisible": true, "count": 777}',
     lineBreak: '\n'
   },
   methods: {
@@ -46,17 +46,76 @@ const app = new Vue({
       const jsObj = JSON.parse(json)
       console.log('jsObj', jsObj)
       console.log('Object.keys', Object.keys(jsObj))
+      this.output = this.parseObject(jsObj)
+
       return jsObj
     },
-    execType: function (param) {
-      const type = typeof param
-      // TODO typeごとに出力内容の振り分け
+    execType: function (key, value) {
+      const type = typeof value
+      console.log(value)
+      console.log(type)
+      if (type === 'string') {
+        return this.getString(key, value)
+      } else if (type === 'boolean') {
+        return this.getBoolean(key, value)
+      } else if (type === 'number') {
+        return this.getNumber(key, value)
+      } else if (type === 'object') {
+        if (Array.isArray(value)) {
+          return this.getArray(key, value)
+        } else {
+          return this.getObject(key, value)
+        }
+      }
+    },
+    parseObject: function (obj) {
+      let textList = []
+      const keys = Object.keys(obj)
+      keys.forEach((v) => {
+        textList.push(this.execType(v, obj[v]))
+      })
+
+      return `{${this.lineBreak}${textList.join(',' + this.lineBreak)}${this.lineBreak}}`
+    },
+    getString: (key, value) => { return `${key}: "${value}"` },
+    getNumber: (key, value) => { return `${key}: ${value}` },
+    getBoolean: (key, value) => { return `${key}: ${value ? 'true' : 'false'}` },
+    getObject: function (key, value) {
+      return `${key}: ${this.parseObject(value)}`
+    },
+    getStringForArray: (value) => { return `"${value}"` },
+    getNumberForArray: (value) => { return `${value}` },
+    getBooleanForArray: (value) => { return `${value ? 'true' : 'false'}` },
+    getObjectForArray: function (value) {
+      return `${this.parseObject(value)}`
+    },
+    getArray: function (key, value) {
+      let val = []
+      value.forEach((v) => {
+        const type = typeof v
+        if (type === 'string') {
+          return this.getStringForArray(value)
+        } else if (type === 'boolean') {
+          return this.getBooleanForArray(value)
+        } else if (type === 'number') {
+          return this.getNumberForArray(value)
+        } else if (type === 'object') {
+          if (Array.isArray(value)) {
+            return this.getObjectForArray(value)
+          } else {
+            return this.getObject(value)
+          }
+        }
+
+      })
+      return `${key}: [${this.lineBreak}]`
     }
   },
   computed: {
-    output: function () {
-      const output = this.json2JSObjectString(this.input)
-      return output
+    _output: function () {
+      this.output = ''
+      this.json2JSObjectString(this.input)
+      return this.output
     }
   }
 })
