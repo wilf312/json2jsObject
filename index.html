@@ -4,7 +4,11 @@
 <title></title>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style>
+<link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <style>
   body, html {
     margin: 0;
     padding: 0;
@@ -21,33 +25,48 @@
     justify-content: space-around;
     align-items: center;
   }
-  .input,
-  .output {
-    max-width: 40vw;
-    max-height: 60vh;
-  }
-  .input textarea,
-  .output textarea {
-    width: 40vw;
-    height: 60vh;
+  textarea {
+    min-height: 70vh;
   }
 </style>
 </head>
 <body>
-<h1>JSON to JS Object</h1>
 <div id="app">
-  <div class="input">
-    <!--キーをソートするか // TODOチェックボックス-->
-    <p>JSON</p>
-    <textarea v-model="input"></textarea>
-  </div>
-  <div class="output">
-    <p>JS Object</p>
-    <textarea v-text="_output"></textarea>
-  </div>
+  <v-app>
+    <v-content>
+      <v-container fluid>
+        <v-layout justify-space-around>
+          <v-flex xs11>
+            <span class="display-1">JSON to JS Object</span>
+          </v-flex>
+        </v-layout>
+        <v-layout row justify-space-around>
+          <v-flex xs5>
+            <v-text-field
+              v-model="input"
+              label="JSON"
+              textarea
+              multi-line
+              box
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs5>
+            <v-text-field
+              v-model="_output"
+              label="JS Object"
+              textarea
+              multi-line
+              box
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    <v-content>
+  </v-app>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript" charset="UTF-8"></script>
+<script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js" type="text/javascript" charset="UTF-8"></script>
 <script>
 const app = new Vue({
