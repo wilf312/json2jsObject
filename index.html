@@ -130,7 +130,7 @@ const app = new Vue({
       return `${this.parseObject(value)}`
     },
     getString: function (key, value) {
-      return `${key}: '${this.createString(value)}'`
+      return `${key}: ${this.createString(value)}`
     },
     getNumber: function (key, value) {
       return `${key}: ${this.createNumber(value)}`
