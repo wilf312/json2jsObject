@@ -21,6 +21,11 @@
     justify-content: space-around;
     align-items: center;
   }
+  .input,
+  .output {
+    max-width: 40vw;
+    max-height: 60vh;
+  }
   .input textarea,
   .output textarea {
     width: 40vw;
@@ -74,7 +79,9 @@ const app = new Vue({
       } else if (type === 'number') {
         return this.getNumber(key, value)
       } else if (type === 'object') {
-        if (Array.isArray(value)) {
+        if (value === null) {
+          return 'null'
+        } else if (Array.isArray(value)) {
           return this.getArray(key, value)
         } else {
           return this.getObject(key, value)
@@ -82,6 +89,8 @@ const app = new Vue({
       }
     },
     parseObject: function (obj) {
+      if (!obj) return 'null'
+
       this.indentSize++
       const indent = ' '.repeat(this.indentSize * this.tabSize)
       let textList = []
@@ -94,17 +103,24 @@ const app = new Vue({
       const coverIndnet = ' '.repeat(this.indentSize * this.tabSize)
       return `${coverIndnet}{${this.lineBreak}${textList.join(',' + this.lineBreak)}${this.lineBreak}${coverIndnet}}`
     },
-    getString: (key, value) => { return `${key}: '${value}'` },
-    getNumber: (key, value) => { return `${key}: ${value}` },
-    getBoolean: (key, value) => { return `${key}: ${value ? 'true' : 'false'}` },
-    getObject: function (key, value) {
-      return `${key}: ${this.parseObject(value)}`
-    },
-    getStringForArray: (value) => { return `'${value}'` },
-    getNumberForArray: (value) => { return `${value}` },
-    getBooleanForArray: (value) => { return `${value ? 'true' : 'false'}` },
-    getObjectForArray: function (value) {
+
+    createString: (value) => { return `'${value}'` },
+    createNumber: (value) => { return `${value}` },
+    createBoolean: (value) => { return `${value ? 'true' : 'false'}` },
+    createObject: function (value) {
       return `${this.parseObject(value)}`
+    },
+    getString: function (key, value) {
+      return `${key}: '${this.createString(value)}'`
+    },
+    getNumber: function (key, value) {
+      return `${key}: ${this.createNumber(value)}`
+    },
+    getBoolean: function (key, value) {
+      return `${key}: ${this.createBoolean(value)}`
+    },
+    getObject: function (key, value) {
+      return `${key}: ${this.createObject(value)}`
     },
     getArray: function (key, value) {
       let val = []
@@ -113,16 +129,18 @@ const app = new Vue({
       value.forEach((v) => {
         const type = typeof v
         if (type === 'string') {
-          val.push(`${indent}${this.getStringForArray(v)}`)
+          val.push(`${indent}${this.createString(v)}`)
         } else if (type === 'boolean') {
-          val.push(`${indent}${this.getBooleanForArray(v)}`)
+          val.push(`${indent}${this.createBoolean(v)}`)
         } else if (type === 'number') {
-          val.push(`${indent}${this.getNumberForArray(v)}`)
+          val.push(`${indent}${this.createNumber(v)}`)
         } else if (type === 'object') {
-          if (Array.isArray(v)) {
+          if (v === null) {
+            val.push(`${indent}null`)
+          } else if (Array.isArray(v)) {
             val.push(this.getArray(null, v))
           } else {
-            val.push(this.getObjectForArray(v))
+            val.push(this.createObject(v))
           }
         }
       })
