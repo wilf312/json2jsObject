@@ -72,7 +72,7 @@
 const app = new Vue({
   el: '#app',
   data: {
-    input: '{"array": ["aaaa", 1, true, false],"arrayObj": [{"aaaa": 123, "hasData": true, "count": -1}, {"test": "aaa"}],"test": {"a": 1}, "message":"ああああ", "isVisible": true, "count": 777}',
+    input: '{"string":"string","boolean":true,"number":1,"object":{"string":"string","boolean":true,"number":123,"object":{"string":"string"},"array":[true]},"array":["string",555,true]}',
     lineBreak: '\n',
     indentSize: 0,
     tabSize: 2
@@ -166,7 +166,7 @@ const app = new Vue({
 
       this.indentSize--
       const coverIndnet = ' '.repeat(this.indentSize * this.tabSize)
-      return `${key}: [${this.lineBreak}${val.join(',')}${this.lineBreak}${coverIndnet}]`
+      return `${key}: [${this.lineBreak}${val.join(`,${this.lineBreak}`)}${this.lineBreak}${coverIndnet}]`
     }
   },
   computed: {
