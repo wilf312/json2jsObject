@@ -26,15 +26,11 @@
 </template>
 
 <script>
+import Const from 'config/Const'
 
 export default {
   data () {
-    return {
-      input: '{"string":"string","boolean":true,"number":1,"object":{"string":"string","boolean":true,"number":123,"object":{"string":"string"},"array":[true]},"array":["string",555,true]}',
-      lineBreak: '\n',
-      indentSize: 0,
-      tabSize: 2
-    }
+    return Object.assign({}, Const.CONTENT_INIT)
   },
   name: 'Content',
   methods: {

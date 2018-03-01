@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Content from '@/components/Content'
+import {strictEqual} from 'assert'
 
 describe('Content.vue', () => {
   it('should input data is json string', () => {
     const Constructor = Vue.extend(Content)
     const vm = new Constructor().$mount()
     const input = '{"string":"string","boolean":true,"number":1,"object":{"string":"string","boolean":true,"number":123,"object":{"string":"string"},"array":[true]},"array":["string",555,true]}'
-
-    expect(vm.input).to.equal(input)
+    const inputted = vm.input
+    strictEqual(input, inputted)
   })
 
   it('should output data is js object string', () => {
