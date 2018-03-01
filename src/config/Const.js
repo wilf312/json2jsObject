@@ -6,4 +6,3 @@ export default {
     tabSize: 2
   }
 }
-

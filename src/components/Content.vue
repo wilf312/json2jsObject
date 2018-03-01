@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import Const from 'config/Const'
+import Const from '../config/Const'
+import * as util from '../util/index'
 
 export default {
   data () {
@@ -34,6 +35,7 @@ export default {
   },
   name: 'Content',
   methods: {
+    ...util,
     json2JSObjectString: function (json) {
       const jsObj = JSON.parse(json)
       if (Array.isArray(jsObj)) {
@@ -78,9 +80,6 @@ export default {
       return `${coverIndnet}{${this.lineBreak}${textList.join(',' + this.lineBreak)}${this.lineBreak}${coverIndnet}}`
     },
 
-    createString: (value) => { return `'${value}'` },
-    createNumber: (value) => { return `${value}` },
-    createBoolean: (value) => { return `${value ? 'true' : 'false'}` },
     createObject: function (value) {
       return `${this.parseObject(value)}`
     },
