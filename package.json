@@ -10,7 +10,7 @@
     "unit": "mocha-webpack --webpack-config build/webpack.test.conf.js --require test/setup.js test/**/*.spec.js",
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "testa": "nyc report",
-    "test": "nyc --require babel-register mocha",
+    "test": "mocha-webpack --require test/setup.js **/__test/*.js",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "build": "node build/build.js"
   },
@@ -99,7 +99,7 @@
   ],
   "nyc": {
     "include": [
-      "src/**/__test/*.js"
+      "**/__test/*.js"
     ],
     "instrument": false,
     "sourceMap": false

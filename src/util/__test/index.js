@@ -1,4 +1,4 @@
-import util from '../index'
+import * as util from '../index'
 import {strictEqual} from 'assert'
 
 describe('createString', () => {
@@ -18,10 +18,10 @@ describe('createNumber', () => {
 describe('createBoolean', () => {
   it('boolean text true', () => {
     const value = true
-    strictEqual(util.createBoolean(value), `'true'`)
+    strictEqual(util.createBoolean(value), 'true')
   })
   it('boolean text false', () => {
     const value = false
-    strictEqual(util.createBoolean(value), `'false'`)
+    strictEqual(util.createBoolean(value), 'false')
   })
 })
