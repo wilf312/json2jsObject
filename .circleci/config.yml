@@ -35,3 +35,5 @@ jobs:
 
       # run tests!
       - run: yarn test
+
+      - run: CODECOV_TOKEN="b16cdb84-80ff-4bbb-98b3-8dd813c602dd" yarn run codecov
