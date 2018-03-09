@@ -7,14 +7,13 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "testa": "nyc report",
-    "test": "mocha-webpack --require test/setup.js **/__test/*.js",
+    "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "unit": "cross-env NODE_ENV=test BABEL_ENV=test mocha \"src/{/,/**/}__tests/*.js\"",
     "unit2": "cross-env NODE_ENV=test BABEL_ENV=test mocha --require src/csp/__tests__/helper \"src/{/,/**/}__tests/*.js\"",
     "cov": "nyc --reporter=text-summary --reporter=lcov npm test",
-    "codecov": "npm run cov && codecov --token=xxxxxx -r wilf312/json2jsObject",
+    "codecov": "npm run cov && codecov --token=b16cdb84-80ff-4bbb-98b3-8dd813c602dd -r wilf312/json2jsObject",
     "build": "node build/build.js"
   },
   "dependencies": {
