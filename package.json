@@ -12,8 +12,8 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "unit": "cross-env NODE_ENV=test BABEL_ENV=test mocha \"src/{/,/**/}__tests/*.js\"",
     "unit2": "cross-env NODE_ENV=test BABEL_ENV=test mocha --require src/csp/__tests__/helper \"src/{/,/**/}__tests/*.js\"",
-    "cov": "nyc --reporter=text-summary --reporter=lcov npm test",
-    "codecov": "npm run cov && codecov --token=b16cdb84-80ff-4bbb-98b3-8dd813c602dd -r wilf312/json2jsObject",
+    "cov": "nyc --reporter=lcov npm test",
+    "codecov": "npm run cov && codecov --token=b16cdb84-80ff-4bbb-98b3-8dd813c602dd",
     "build": "node build/build.js"
   },
   "dependencies": {
