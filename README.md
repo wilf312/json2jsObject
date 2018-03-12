@@ -1,6 +1,7 @@
 # json-2-js-object
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/wilf312/json2jsObject.svg)](https://greenkeeper.io/)
+[![codecov](https://codecov.io/gh/wilf312/json2jsObject/branch/master/graph/badge.svg)](https://codecov.io/gh/wilf312/json2jsObject)
 > A Vue.js project
 
 [demo](https://wilf312.github.io/json2jsObject/)
