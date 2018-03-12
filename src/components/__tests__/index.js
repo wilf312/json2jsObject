@@ -1,4 +1,6 @@
+require('babel-register')
 var assert = require('assert')
+var test = require('../../util')
 
 describe('Array', function() {
   describe('#indexOf()', function() {
