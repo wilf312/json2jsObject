@@ -1,4 +1,4 @@
-require('babel-register')
+require('@babel/register')
 var assert = require('assert')
 var test = require('../../util')
 

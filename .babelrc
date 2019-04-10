@@ -1,20 +1,9 @@
 {
-  "presets":
-  [
-      [
-          "@babel/preset-env",
-          {
-              "targets": {
-                  "browsers": ["last 2 versions"]
-              },
-              "debug": true
-          }
-      ]
-  ],
-  "plugins": ["transform-vue-jsx", "@babel/transform-runtime"],
+  "presets": [ "@babel/preset-env" ],
+  "plugins": ["transform-vue-jsx"],
   "env": {
     "test": {
-      "presets": ["env", "stage-2"],
+      "presets": ["@babel/preset-env"],
       "plugins": ["transform-vue-jsx", "istanbul"]
     }
   }
