@@ -1,26 +1,33 @@
 <template>
-  <v-container fluid>
+  <v-container
+    fluid
+    fill-height
+  >
     <v-slide-y-transition mode="out-in">
       <v-layout
         row
         justify-space-around
       >
         <v-flex xs5>
-          <v-text-field
+          <v-textarea
             v-model="input"
+            outline
             label="JSON"
             textarea
             multi-line
             box
+            auto-grow
           />
         </v-flex>
         <v-flex xs5>
-          <v-text-field
+          <v-textarea
             v-model="_output"
+            outline
             label="JS Object"
             textarea
             multi-line
             box
+            auto-grow
           />
         </v-flex>
       </v-layout>
