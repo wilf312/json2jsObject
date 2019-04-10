@@ -3,11 +3,11 @@
     <v-toolbar
       app
     >
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-toolbar-title v-text="title" />
+      <v-spacer />
     </v-toolbar>
     <v-content>
-      <Content/>
+      <Content />
     </v-content>
   </v-app>
 </template>
@@ -16,6 +16,10 @@
 import Content from './components/Content'
 
 export default {
+  name: 'App',
+  components: {
+    Content
+  },
   data () {
     return {
       clipped: false,
@@ -28,16 +32,11 @@ export default {
       rightDrawer: false,
       title: 'JSON 2 JS Object'
     }
-  },
-  name: 'App',
-  components: {
-    Content
   }
 }
 </script>
 
 <style>
-
   #app {
     width: 100vw;
     height: 100vh;

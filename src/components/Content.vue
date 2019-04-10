@@ -1,7 +1,10 @@
 <template>
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
-      <v-layout row justify-space-around>
+      <v-layout
+        row
+        justify-space-around
+      >
         <v-flex xs5>
           <v-text-field
             v-model="input"
@@ -9,7 +12,7 @@
             textarea
             multi-line
             box
-          ></v-text-field>
+          />
         </v-flex>
         <v-flex xs5>
           <v-text-field
@@ -18,7 +21,7 @@
             textarea
             multi-line
             box
-          ></v-text-field>
+          />
         </v-flex>
       </v-layout>
     </v-slide-y-transition>
@@ -30,10 +33,18 @@ import Const from '../config/Const'
 import * as util from '../util/index'
 
 export default {
+  name: 'Content',
   data () {
     return Object.assign({}, Const.CONTENT_INIT)
   },
-  name: 'Content',
+  computed: {
+    _output: function () {
+      // eslint-disable-next-line
+      this.output = ''
+      this.json2JSObjectString(this.input)
+      return this.output
+    }
+  },
   methods: {
     ...util,
     json2JSObjectString: function (json) {
@@ -124,13 +135,6 @@ export default {
       this.indentSize--
       const coverIndnet = ' '.repeat(this.indentSize * this.tabSize)
       return `${key}: [${this.lineBreak}${val.join(`,${this.lineBreak}`)}${this.lineBreak}${coverIndnet}]`
-    }
-  },
-  computed: {
-    _output: function () {
-      this.output = ''
-      this.json2JSObjectString(this.input)
-      return this.output
     }
   }
 }
