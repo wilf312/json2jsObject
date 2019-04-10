@@ -15,13 +15,6 @@ describe('createNumber', () => {
   })
 })
 
-describe('test', () => {
-  it('number text 123', () => {
-    const value = 123
-    strictEqual(util.createNumber(value), `1111${value}`)
-  })
-})
-
 describe('createBoolean', () => {
   it('boolean text true', () => {
     const value = true
