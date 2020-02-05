@@ -8720,9 +8720,10 @@ vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
 
-vuetify@^1.5.11:
-  version "1.5.11"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.5.11.tgz#ae1790df1dc1505289116dfd79426d83b38d2ba9"
+vuetify@^2.2.10:
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.2.10.tgz#42b970940b9ee779c32c2b3fdc4ac47360ee3732"
+  integrity sha512-3PIiOqilv3ioCO+2nK/dXd8CNxSGyab1r0GiF7RXDg4jEREed4O2fuejM0rbZCLr/qPhIT9cZTyEh9CC+OA4qw==
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
